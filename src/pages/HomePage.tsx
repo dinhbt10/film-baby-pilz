@@ -197,7 +197,7 @@ export function HomePage() {
               variant="outline"
               onClick={handleLoadMore}
               disabled={loadingMore}
-              className="min-w-[160px] h-11"
+              className="min-w-[160px] min-h-[44px] h-11 touch-manipulation"
             >
               {loadingMore ? "Đang tải..." : "Load thêm"}
             </Button>

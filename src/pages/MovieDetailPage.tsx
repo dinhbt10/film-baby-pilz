@@ -119,7 +119,7 @@ export function MovieDetailPage() {
                   <Play className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground/70" />
                 </div>
                 <p className="text-sm font-medium px-4 text-center">
-                  {hasEpisodes ? "Chọn tập bên phải để xem" : "Không có tập phim"}
+                  {hasEpisodes ? "Chọn tập bên dưới để xem" : "Không có tập phim"}
                 </p>
               </div>
             )}
@@ -129,7 +129,7 @@ export function MovieDetailPage() {
         {/* Danh sách tập - bên phải */}
         {hasEpisodes && (
           <div className="flex flex-col min-h-0">
-            <div className="rounded-xl border border-border bg-card shadow-md overflow-hidden flex flex-col flex-1 min-h-[280px] lg:min-h-0 lg:max-h-[calc(100vh-12rem)] lg:sticky lg:top-24">
+            <div className="rounded-xl border border-border bg-card shadow-md overflow-hidden flex flex-col flex-1 min-h-[260px] lg:min-h-0 lg:max-h-[calc(100vh-12rem)] lg:sticky lg:top-24">
               <div className="p-3 sm:p-4 border-b border-border bg-muted/30 shrink-0">
                 <div className="flex items-center gap-2 mb-3">
                   <List className="h-4 w-4 text-primary shrink-0" />
@@ -142,7 +142,7 @@ export function MovieDetailPage() {
                       type="button"
                       onClick={() => setCurrentServerIndex(i)}
                       className={cn(
-                        "px-2.5 py-1.5 rounded-md text-xs font-medium transition-colors",
+                        "px-2.5 py-2 min-h-[44px] rounded-md text-xs font-medium transition-colors touch-manipulation",
                         i === currentServerIndex
                           ? "bg-primary text-primary-foreground shadow"
                           : "bg-muted hover:bg-muted/80 text-muted-foreground hover:text-foreground"
@@ -161,7 +161,7 @@ export function MovieDetailPage() {
                       type="button"
                       onClick={() => setCurrentEpisode(ep)}
                       className={cn(
-                        "min-w-0 px-2 py-2 rounded-lg text-sm font-medium transition-all text-center truncate",
+                        "min-w-0 min-h-[44px] px-2 py-2.5 rounded-lg text-sm font-medium transition-all text-center truncate touch-manipulation",
                         currentEpisode?.slug === ep.slug
                           ? "bg-primary text-primary-foreground shadow ring-2 ring-primary/40"
                           : "bg-muted/80 hover:bg-muted text-muted-foreground hover:text-foreground"
@@ -216,7 +216,7 @@ export function MovieDetailPage() {
         </div>
 
         <div className="md:col-span-1">
-          <div className="sticky top-24 rounded-xl overflow-hidden border border-border bg-card shadow-md">
+          <div className="md:sticky md:top-24 rounded-xl overflow-hidden border border-border bg-card shadow-md">
             <img
               src={posterUrl}
               alt={movie.name}

@@ -46,32 +46,32 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="w-full my-2 max-w-[1500px] mx-auto flex h-14 items-center gap-4 px-3 sm:px-4 md:px-6">
-        <Link to="/" className="flex items-center gap-2 font-semibold shrink-0">
+      <div className="w-full my-2 max-w-[1500px] mx-auto flex h-14 flex-wrap items-center gap-2 sm:gap-4 px-3 sm:px-4 md:px-6 min-w-0">
+        <Link to="/" className="flex items-center gap-2 font-semibold shrink-0 min-h-[44px] items-center">
           Nga 🍄
         </Link>
-        <nav className="flex flex-1 items-center gap-1 sm:gap-2">
+        <nav className="flex flex-1 items-center gap-1 sm:gap-2 min-w-0 flex-wrap">
           <Link
             to="/phim-be-nga"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2 rounded-md"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md min-h-[44px] inline-flex items-center touch-manipulation"
           >
             Phim bé Nga
           </Link>
           <Link
             to="/danh-sach/phim-moi-cap-nhat"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2 rounded-md hidden sm:inline"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md hidden sm:inline-flex min-h-[44px] items-center touch-manipulation"
           >
             Phim mới
           </Link>
           <Link
             to="/danh-sach/phim-bo"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2 rounded-md hidden sm:inline"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md hidden sm:inline-flex min-h-[44px] items-center touch-manipulation"
           >
             Phim bộ
           </Link>
           <Link
             to="/danh-sach/phim-le"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2 rounded-md hidden sm:inline"
+            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md hidden sm:inline-flex min-h-[44px] items-center touch-manipulation"
           >
             Phim lẻ
           </Link>
@@ -82,7 +82,7 @@ export function Header() {
               type="button"
               onClick={() => setGenreOpen((o) => !o)}
               className={cn(
-                "flex items-center gap-1 text-sm font-medium px-2 py-2 rounded-md transition-colors",
+                "flex items-center gap-1 text-sm font-medium px-3 py-2.5 rounded-md transition-colors min-h-[44px] touch-manipulation",
                 genreOpen
                   ? "text-foreground bg-muted"
                   : "text-muted-foreground hover:text-foreground"
@@ -96,7 +96,7 @@ export function Header() {
               />
             </button>
             {genreOpen && (
-              <div className="absolute left-0 top-full mt-1 w-[max(280px,24rem)] max-h-[70vh] overflow-y-auto rounded-lg border border-border bg-card shadow-lg py-2 z-50">
+              <div className="absolute left-0 top-full mt-1 w-[min(calc(100vw-24px),max(280px,24rem))] max-h-[70vh] overflow-y-auto rounded-lg border border-border bg-card shadow-lg py-2 z-50">
                 {genresLoading ? (
                   <div className="flex items-center justify-center py-6 px-4">
                     <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
@@ -125,12 +125,12 @@ export function Header() {
         <button
           type="button"
           onClick={() => setSearchModalOpen(true)}
-          className="flex flex-1 max-w-sm min-w-0 items-center gap-2 h-9 px-3 rounded-md border border-input bg-background text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+          className="flex flex-1 max-w-sm min-w-0 items-center gap-2 min-h-[44px] h-11 px-3 rounded-md border border-input bg-background text-sm text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors touch-manipulation"
           title="Tìm phim (⌘K hoặc Ctrl+K)"
         >
           <Search className="h-4 w-4 shrink-0" />
-          <span>Tìm phim...</span>
-          <kbd className="ml-auto text-xs sm:text-sm px-2 py-1 rounded-md bg-muted font-medium border border-border">
+          <span className="truncate">Tìm phim...</span>
+          <kbd className="hidden sm:inline-flex ml-auto text-xs sm:text-sm px-2 py-1 rounded-md bg-muted font-medium border border-border shrink-0">
             {typeof navigator !== "undefined" && /Mac|iPhone|iPad/i.test(navigator.userAgent) ? "⌘" : "Ctrl"}K
           </kbd>
         </button>

@@ -27,9 +27,9 @@ export function SearchPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Search className="h-6 w-6" />
-        Kết quả tìm kiếm: &quot;{q}&quot;
+      <h1 className="text-xl sm:text-2xl font-bold mb-6 flex items-center gap-2 break-words">
+        <Search className="h-5 w-5 sm:h-6 sm:w-6 shrink-0" />
+        <span className="line-clamp-2">Kết quả: &quot;{q}&quot;</span>
       </h1>
       {loading ? (
         <div className="flex items-center justify-center min-h-[300px]">
@@ -40,7 +40,7 @@ export function SearchPage() {
           {q ? "Không tìm thấy phim nào." : "Nhập từ khóa để tìm phim."}
         </p>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
           {movies.map((movie) => (
             <MovieCard key={movie._id} movie={movie} />
           ))}

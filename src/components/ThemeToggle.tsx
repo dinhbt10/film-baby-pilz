@@ -20,7 +20,7 @@ export function ThemeToggle() {
           type="button"
           onClick={() => setTheme(value)}
           className={cn(
-            "rounded-md p-1.5 transition-colors",
+            "rounded-md p-2 min-h-[44px] min-w-[44px] flex items-center justify-center transition-colors touch-manipulation",
             theme === value
               ? "bg-background text-foreground shadow-sm"
               : "text-muted-foreground hover:text-foreground"

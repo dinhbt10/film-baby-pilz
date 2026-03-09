@@ -44,28 +44,30 @@ export function GenrePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">{title}</h1>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <h1 className="text-xl sm:text-2xl font-bold mb-6 line-clamp-2">{title}</h1>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
         {movies.map((movie) => (
           <MovieCard key={movie._id} movie={movie} />
         ))}
       </div>
       {totalPages > 1 && (
-        <div className="flex justify-center gap-2 mt-8">
+        <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 mt-8">
           <Button
             variant="outline"
             disabled={page <= 1}
             onClick={() => navigate(`/the-loai/${slug}?page=${page - 1}`)}
+            className="min-h-[44px] min-w-[44px] touch-manipulation"
           >
             Trước
           </Button>
-          <span className="flex items-center px-4 text-sm text-muted-foreground">
+          <span className="flex items-center px-4 text-sm text-muted-foreground min-h-[44px]">
             {page} / {totalPages}
           </span>
           <Button
             variant="outline"
             disabled={page >= totalPages}
             onClick={() => navigate(`/the-loai/${slug}?page=${page + 1}`)}
+            className="min-h-[44px] min-w-[44px] touch-manipulation"
           >
             Sau
           </Button>

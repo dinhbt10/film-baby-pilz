@@ -92,14 +92,14 @@ export function SearchModal({ open, onClose, initialKeyword = "" }: SearchModalP
   if (!open) return null
 
   const modal = (
-    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[15vh] px-3 sm:px-4 min-h-screen min-w-full">
+    <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[max(1rem,env(safe-area-inset-top))] sm:pt-[15vh] px-3 sm:px-4 min-h-screen min-w-full pb-[env(safe-area-inset-bottom)]">
       <div
         className="absolute inset-0 min-h-full min-w-full bg-black/70 backdrop-blur-md"
         onClick={onClose}
         aria-hidden
       />
       <div
-        className="relative w-full max-w-2xl max-h-[75vh] flex flex-col rounded-xl border border-border bg-card shadow-xl"
+        className="relative w-full max-w-2xl max-h-[85dvh] sm:max-h-[75vh] flex flex-col rounded-xl border border-border bg-card shadow-xl"
         role="dialog"
         aria-modal="true"
         aria-label="Tìm kiếm phim"
@@ -112,7 +112,7 @@ export function SearchModal({ open, onClose, initialKeyword = "" }: SearchModalP
               placeholder="Tìm phim..."
               value={keyword}
               onChange={(e) => setKeyword(e.target.value)}
-              className="h-10 flex-1"
+              className="h-11 min-h-[44px] flex-1 text-base"
               autoComplete="off"
             />
             <Button type="button" variant="ghost" size="icon" onClick={onClose} className="shrink-0">
@@ -151,7 +151,7 @@ export function SearchModal({ open, onClose, initialKeyword = "" }: SearchModalP
                     to={`/phim/${movie.slug}`}
                     onClick={onClose}
                     className={cn(
-                      "group flex gap-3 rounded-lg border border-border bg-card/80 p-2",
+                      "group flex gap-3 rounded-lg border border-border bg-card/80 p-2 min-h-[72px] touch-manipulation active:bg-muted/50",
                       "hover:border-primary/50 hover:bg-muted/50 transition-all"
                     )}
                   >

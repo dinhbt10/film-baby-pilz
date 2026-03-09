@@ -15,7 +15,7 @@ export function MovieCard({ movie, className }: MovieCardProps) {
     <Link
       to={`/phim/${movie.slug}`}
       className={cn(
-        "group block rounded-lg overflow-hidden bg-card border border-border shadow-sm hover:shadow-md transition-all hover:border-primary/50",
+        "group block rounded-lg overflow-hidden bg-card border border-border shadow-sm hover:shadow-md transition-all hover:border-primary/50 touch-manipulation active:scale-[0.98]",
         className
       )}
     >
