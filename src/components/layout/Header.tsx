@@ -52,12 +52,6 @@ export function Header() {
         </Link>
         <nav className="flex flex-1 items-center gap-1 sm:gap-2">
           <Link
-            to="/"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2 rounded-md"
-          >
-            Trang chủ
-          </Link>
-          <Link
             to="/phim-be-nga"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-2 rounded-md"
           >
