@@ -5,6 +5,7 @@ import { MovieListPage } from "@/pages/MovieListPage"
 import { MovieDetailPage } from "@/pages/MovieDetailPage"
 import { SearchPage } from "@/pages/SearchPage"
 import { GenrePage } from "@/pages/GenrePage"
+import { CountryPage } from "@/pages/CountryPage"
 import { PhimBeNgaPage } from "@/pages/PhimBeNgaPage"
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="danh-sach/:slug" element={<MovieListPage />} />
           <Route path="phim/:slug" element={<MovieDetailPage />} />
           <Route path="the-loai/:slug" element={<GenrePage />} />
+          <Route path="quoc-gia/:slug" element={<CountryPage />} />
           <Route path="tim-kiem" element={<SearchPage />} />
         </Route>
       </Routes>

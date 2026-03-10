@@ -4,15 +4,19 @@ import { ChevronDown, Loader2, Search } from "lucide-react"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { SearchModal } from "@/components/SearchModal"
 import { movieService } from "@/api/services/movie"
-import type { Genre } from "@/types/api"
+import type { Genre, CountryNav } from "@/types/api"
 import { cn } from "@/lib/utils"
 
 export function Header() {
   const [genres, setGenres] = useState<Genre[]>([])
   const [genresLoading, setGenresLoading] = useState(false)
   const [genreOpen, setGenreOpen] = useState(false)
+  const [countries, setCountries] = useState<CountryNav[]>([])
+  const [countriesLoading, setCountriesLoading] = useState(false)
+  const [countryOpen, setCountryOpen] = useState(false)
   const [searchModalOpen, setSearchModalOpen] = useState(false)
   const genreRef = useRef<HTMLDivElement>(null)
+  const countryRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setGenresLoading(true)
@@ -24,10 +28,19 @@ export function Header() {
   }, [])
 
   useEffect(() => {
+    setCountriesLoading(true)
+    movieService
+      .getCountries()
+      .then((res) => setCountries(res.data.data.items ?? []))
+      .catch(() => setCountries([]))
+      .finally(() => setCountriesLoading(false))
+  }, [])
+
+  useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      if (genreRef.current && !genreRef.current.contains(e.target as Node)) {
-        setGenreOpen(false)
-      }
+      const target = e.target as Node
+      if (genreRef.current && !genreRef.current.contains(target)) setGenreOpen(false)
+      if (countryRef.current && !countryRef.current.contains(target)) setCountryOpen(false)
     }
     document.addEventListener("click", handleClickOutside)
     return () => document.removeEventListener("click", handleClickOutside)
@@ -56,24 +69,6 @@ export function Header() {
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md min-h-[44px] inline-flex items-center touch-manipulation"
           >
             Phim bé Nga
-          </Link>
-          <Link
-            to="/danh-sach/phim-moi-cap-nhat"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md hidden sm:inline-flex min-h-[44px] items-center touch-manipulation"
-          >
-            Phim mới
-          </Link>
-          <Link
-            to="/danh-sach/phim-bo"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md hidden sm:inline-flex min-h-[44px] items-center touch-manipulation"
-          >
-            Phim bộ
-          </Link>
-          <Link
-            to="/danh-sach/phim-le"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-2.5 rounded-md hidden sm:inline-flex min-h-[44px] items-center touch-manipulation"
-          >
-            Phim lẻ
           </Link>
 
           {/* Thể loại - dropdown từ API /the-loai */}
@@ -113,6 +108,52 @@ export function Header() {
                           className="block text-sm px-2 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors truncate"
                         >
                           {g.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Quốc gia - dropdown từ API /quoc-gia */}
+          <div className="relative" ref={countryRef}>
+            <button
+              type="button"
+              onClick={() => setCountryOpen((o) => !o)}
+              className={cn(
+                "flex items-center gap-1 text-sm font-medium px-3 py-2.5 rounded-md transition-colors min-h-[44px] touch-manipulation",
+                countryOpen
+                  ? "text-foreground bg-muted"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+              aria-expanded={countryOpen}
+              aria-haspopup="true"
+            >
+              Quốc gia
+              <ChevronDown
+                className={cn("h-4 w-4 transition-transform", countryOpen && "rotate-180")}
+              />
+            </button>
+            {countryOpen && (
+              <div className="absolute left-0 top-full mt-1 w-[min(calc(100vw-24px),max(280px,24rem))] max-h-[70vh] overflow-y-auto rounded-lg border border-border bg-card shadow-lg py-2 z-50">
+                {countriesLoading ? (
+                  <div className="flex items-center justify-center py-6 px-4">
+                    <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                  </div>
+                ) : countries.length === 0 ? (
+                  <p className="text-sm text-muted-foreground py-4 px-4">Chưa có quốc gia</p>
+                ) : (
+                  <ul className="grid grid-cols-3 gap-x-2 gap-y-0.5 px-2">
+                    {countries.map((c) => (
+                      <li key={c._id}>
+                        <Link
+                          to={`/quoc-gia/${c.slug}`}
+                          onClick={() => setCountryOpen(false)}
+                          className="block text-sm px-2 py-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted/80 transition-colors truncate"
+                        >
+                          {c.name}
                         </Link>
                       </li>
                     ))}

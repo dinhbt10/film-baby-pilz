@@ -6,14 +6,7 @@ import { MovieCard } from "@/components/MovieCard"
 import { Button } from "@/components/ui/button"
 import { Loader2 } from "lucide-react"
 
-const LIST_LABELS: Record<string, string> = {
-  "phim-moi-cap-nhat": "Phim mới cập nhật",
-  "phim-bo": "Phim bộ",
-  "phim-le": "Phim lẻ",
-  "hoat-hinh": "Hoạt hình",
-}
-
-export function MovieListPage() {
+export function CountryPage() {
   const { slug } = useParams<{ slug: string }>()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
@@ -22,18 +15,17 @@ export function MovieListPage() {
   const [movies, setMovies] = useState<MovieListItem[]>([])
   const [loading, setLoading] = useState(true)
   const [totalPages, setTotalPages] = useState(1)
-  const [title, setTitle] = useState("Danh sách phim")
-  const listSlug = slug || "phim-moi-cap-nhat"
+  const [title, setTitle] = useState("Quốc gia")
 
   useEffect(() => {
+    if (!slug) return
     setLoading(true)
     movieService
-      .getList(listSlug, page)
+      .getByCountry(slug, page)
       .then((res) => {
-        const data = res.data.data
-        setMovies(data.items)
-        setTitle(data.titlePage || LIST_LABELS[listSlug] || "Danh sách phim")
-        const pagination = data.params?.pagination
+        setMovies(res.data.data.items)
+        setTitle(res.data.data.titlePage || slug)
+        const pagination = res.data.data.params?.pagination
         if (pagination) {
           setTotalPages(
             Math.ceil(pagination.totalItems / pagination.totalItemsPerPage)
@@ -42,7 +34,7 @@ export function MovieListPage() {
       })
       .catch(() => setMovies([]))
       .finally(() => setLoading(false))
-  }, [listSlug, page])
+  }, [slug, page])
 
   if (loading && movies.length === 0) {
     return (
@@ -54,7 +46,9 @@ export function MovieListPage() {
 
   return (
     <div>
-      <h1 className="text-xl sm:text-2xl font-bold mb-6 line-clamp-2">{title}</h1>
+      <h1 className="text-xl sm:text-2xl font-bold mb-6 line-clamp-2">
+        {title}
+      </h1>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
         {movies.map((movie) => (
           <MovieCard key={movie._id} movie={movie} />
@@ -65,7 +59,7 @@ export function MovieListPage() {
           <Button
             variant="outline"
             disabled={page <= 1}
-            onClick={() => navigate(`/danh-sach/${listSlug}?page=${page - 1}`)}
+            onClick={() => navigate(`/quoc-gia/${slug}?page=${page - 1}`)}
             className="min-h-[44px] min-w-[44px] touch-manipulation"
           >
             Trước
@@ -76,7 +70,7 @@ export function MovieListPage() {
           <Button
             variant="outline"
             disabled={page >= totalPages}
-            onClick={() => navigate(`/danh-sach/${listSlug}?page=${page + 1}`)}
+            onClick={() => navigate(`/quoc-gia/${slug}?page=${page + 1}`)}
             className="min-h-[44px] min-w-[44px] touch-manipulation"
           >
             Sau

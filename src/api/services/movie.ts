@@ -4,6 +4,7 @@ import type {
   MovieDetailResponse,
   GenreListResponse,
   HomeResponse,
+  CountryListResponse,
 } from "@/types/api"
 
 const DANH_SACH = {
@@ -50,6 +51,18 @@ export const movieService = {
   /** Trang chủ - các mục từ API home */
   getHome() {
     return apiClient.get<HomeResponse>("/home")
+  },
+
+  /** Danh sách quốc gia (cho nav) */
+  getCountries() {
+    return apiClient.get<CountryListResponse>("/quoc-gia")
+  },
+
+  /** Phim theo quốc gia - GET /v1/api/quoc-gia/[slug] */
+  getByCountry(countrySlug: string, page = 1) {
+    return apiClient.get<MovieListResponse>(`/quoc-gia/${countrySlug}`, {
+      params: { page },
+    })
   },
 }
 

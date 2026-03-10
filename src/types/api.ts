@@ -162,6 +162,21 @@ export interface GenreListResponse {
   }
 }
 
+// Quốc gia (nav từ /v1/api/quoc-gia)
+export interface CountryNav {
+  _id: string
+  name: string
+  slug: string
+}
+
+export interface CountryListResponse {
+  status: string
+  message: string
+  data: {
+    items: CountryNav[]
+  }
+}
+
 // Home API response (/v1/api/home)
 export interface HomeParams {
   type_slug?: string
