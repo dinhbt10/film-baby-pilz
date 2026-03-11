@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
-import { Header } from "@/components/layout/Header"
+import { Outlet } from "react-router-dom";
+import { Header } from "@/components/layout/Header";
 
 export function MainLayout() {
   return (
@@ -9,10 +9,10 @@ export function MainLayout() {
         <Outlet />
       </main>
       <footer className="border-t border-border py-6 mt-auto pb-[env(safe-area-inset-bottom)]">
-        <div className="w-full px-4 text-center text-sm text-muted-foreground">
+        <div className="w-full my-2 px-4 text-center text-sm text-muted-foreground">
           Web phim này làm ra để dành cho bé Nga 🍄
         </div>
       </footer>
     </div>
-  )
+  );
 }
